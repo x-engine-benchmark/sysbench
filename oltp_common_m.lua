@@ -291,8 +291,8 @@ local stmt_defs = {
       "DELETE FROM sbtest%u WHERE id=?",
       t.INT},
    inserts = {
-      "INSERT INTO sbtest%u (id, k, c, pad) VALUES (?, ?, ?, ?)",
-      t.INT, t.INT, {t.CHAR, 120}, {t.CHAR, 60}},
+      "INSERT INTO sbtest%u (id, c, pad) VALUES (?, ?, ?)",
+      t.INT, {t.CHAR, 120}, {t.CHAR, 60}},
 }
 
 function prepare_begin()
@@ -504,9 +504,9 @@ function execute_delete_inserts()
       param[tnum].deletes[1]:set(id)
 
       param[tnum].inserts[1]:set(id)
-      param[tnum].inserts[2]:set(k)
-      param[tnum].inserts[3]:set_rand_str(c_value_template)
-      param[tnum].inserts[4]:set_rand_str(pad_value_template)
+      -- param[tnum].inserts[2]:set(k)
+      param[tnum].inserts[2]:set_rand_str(c_value_template)
+      param[tnum].inserts[3]:set_rand_str(pad_value_template)
 
       stmt[tnum].deletes:execute()
       stmt[tnum].inserts:execute()
